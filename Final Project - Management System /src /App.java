@@ -1,5 +1,9 @@
 public class BlockCraftGame {
-
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.start();
+    }
+        
 public static void main(String[] args) {
         initializeGraphics();
         createGameWindow();
@@ -7,10 +11,11 @@ public static void main(String[] args) {
         setupInitialGameState();
 
         // 2. Game Loop
-        while (isRunning) { // isRunning would be a boolean that determines if the game should continue
-            handleInput();
-            updateGameState();
-            renderGame();
+        private static boolean isRunning = true; // Add this near the top
+
+        // Then inside handleInput or another method:
+        if (/* some exit condition, like ESC key */) {
+            isRunning = false;
         }
 
         // 3. Cleanup (after the game loop ends)
