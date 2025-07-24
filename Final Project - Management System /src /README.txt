@@ -1,3 +1,21 @@
+Final Project – [Aaron Schelfo]
+JavaFX Application with SQL
+
+How to Run:
+1. Open in [IDE Name: IntelliJ, Eclipse, etc.]
+2. Add JavaFX and JDBC libraries to the classpath
+3. Run Main.java
+
+Description:
+This application allows users to [describe app function briefly]
+
+UML Diagram:
+See UML_Diagram.png
+
+Notes:
+- Requires Java 11+
+- Database file located in /data/
+
 Block Game Management System:
 
 1. The game operates on a continuous loop that updates the game state and renders graphics.
