@@ -1,0 +1,23 @@
+[
+  {
+    "id": "dirt",
+    "name": "Dirt Block",
+    "texturePath": "textures/blocks/dirt.png",
+    "durability": 10,
+    "solid": true
+  },
+  {
+    "id": "stone",
+    "name": "Stone Block",
+    "texturePath": "textures/blocks/stone.png",
+    "durability": 50,
+    "solid": true
+  },
+  {
+    "id": "water",
+    "name": "Water Block",
+    "texturePath": "textures/blocks/water.png",
+    "durability": 1,
+    "solid": false
+  }
+]
