@@ -4,26 +4,32 @@ public class Controller {
     @FXML private Slider blockSizeSlider;
     @FXML private Label selectedBlockLabel;
 
-    private BlockCraftGame game; // Assuming a game logic class
+    private BlockCraftGame game;
 
     public void initialize() {
-        // Initialize the controller
-        // Set initial values for controls
-        selectedBlockLabel.setText("Current Block: "); 
+        selectedBlockLabel.setText("Current Block: None");
+
+        // Respond to slider value changes
+        blockSizeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (game != null) {
+                game.setBlockSize(newVal.doubleValue());
+            }
+        });
     }
 
     @FXML
     private void handlePlaceBlockAction() {
-        // Logic to place a block in the game world
-        game.placeBlock(); 
+        if (game != null) {
+            game.placeBlock();
+        } else {
+            System.err.println("Game logic not set.");
+        }
     }
 
-    @FXML
-    private void handleBlockSizeChange() {
-        // Update block size in the game logic
-        game.setBlockSize(blockSizeSlider.getValue());
-    }
-
+    /**
+     * Sets the game logic reference for this controller.
+     * @param game the game logic object
+     */
     public void setGame(BlockCraftGame game) {
         this.game = game;
     }
