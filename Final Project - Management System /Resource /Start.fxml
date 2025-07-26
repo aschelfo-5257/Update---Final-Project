@@ -9,7 +9,11 @@
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
-   <Label text="My Java Game" styleClass="game-title" />
+   <Label fx:id="titleLabel" text="My Java Game" styleClass="game-title" />
    <Label text="Click 'Start Game' to begin your adventure!" />
-   <Button fx:id="startButton" text="Start Game" onAction="#handleStartButtonAction" />
+   <Button fx:id="startButton" text="Start Game" onAction="#handleStartButtonAction">
+    <tooltip>
+        <Tooltip text="Begin your journey!" />
+    </tooltip>
+   </Button>
 </VBox>
