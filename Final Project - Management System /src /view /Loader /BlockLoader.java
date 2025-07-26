@@ -6,7 +6,7 @@ class BlockLoader { // BlockLoader handles visual representation
     }
 }
 
-// Example Game Engine methods
+// Set up Engine methods
 class GameEngine {
     private static void setupInitialGameState() {
         // Set up player, world, etc.
