@@ -1,27 +1,33 @@
-Final Project – [Aaron Schelfo]
-JavaFX Application with SQL
+# Block Game Management System
+**Final Project – Aaron Schelfo**  
+JavaFX Application with SQL Integration
 
-How to Run:
-1. Open in [IDE Name: IntelliJ, Eclipse, etc.]
-2. Add JavaFX and JDBC libraries to the classpath
-3. Run Main.java
+## Description
+This JavaFX application simulates a block-based game management system. Users can interact with a block environment, perform basic movement, place or remove blocks, and manage resources through a simple inventory interface. Data persistence is handled via SQL.
 
-Description:
-This application allows users to [describe app function briefly]
+## How to Run
+1. Open the project in your IDE (recommended: IntelliJ IDEA).
+2. Ensure Java 11 or later is installed.
+3. Add JavaFX SDK and JDBC (e.g., SQLite or MySQL) libraries to your project's classpath.
+4. Run `Main.java` to launch the application.
 
-UML Diagram:
-See UML_Diagram.png
+## UML Diagram
+See `UML_Diagram.png` for a class diagram overview.
 
-Notes:
-- Requires Java 11+
-- Database file located in /data/
+## Technical Overview
+- The game loop updates the state continuously and renders changes using JavaFX.
+- The world is represented using a 3D array structure.
+- Each block is defined using a `Block` class that includes properties like texture and solidity.
+- Player interaction is handled through keyboard and mouse input.
+- Basic physics and collision detection are implemented to allow realistic movement.
+- An inventory system allows resource collection, crafting, and block placement.
 
-Block Game Management System:
+## Requirements
+- Java 11 or higher
+- JavaFX SDK (tested with version XX)
+- JDBC driver (e.g., SQLite JDBC)
+- Database file located at `/data/`
 
-1. The game operates on a continuous loop that updates the game state and renders graphics.
-2. The game world is typically represented as a 3D array or similar data structure storing information about each block.
-3. A Block class defines properties of each block type (e.g., texture, solidity).
-4. Graphics libraries like LWJGL (Lightweight Java Game Library) or JOGL are commonly used for 3D rendering in Java. This involves setting up a camera, drawing cubes (representing blocks), and applying textures.
-5. Player interaction (movement, placing/breaking blocks) is handled by listening for keyboard and mouse input.
-6. Basic physics for player movement and block interaction may involve collision detection with solid blocks.
-7. This includes inventory management, crafting systems, and other game-specific mechanics.
+## Notes
+- Ensure JavaFX VM options are set if using IntelliJ (e.g., `--module-path` and `--add-modules`).
+- For database persistence, make sure the `/data/` directory is writable.
