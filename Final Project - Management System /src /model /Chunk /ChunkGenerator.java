@@ -16,22 +16,21 @@ public class ChunkGenerator {
                 // Calculate global coordinates for noise input
                 int worldX = chunkX * chunkSize + x;
                 int worldZ = chunkZ * chunkSize + z;
-
+                
                 // Generate a height value using the noise function
-                double height = noise.getValue(worldX * 0.05, worldZ * 0.05); // Scale coordinates for desired terrain features
-                int surfaceHeight = (int) (height * worldHeight * 0.5 + worldHeight * 0.3); // Map noise to a surface height
-
+                double height = noise.getValue(worldX * 0.05, worldZ * 0.05);
+                int surfaceHeight = BASE_TERRAIN_HEIGHT + (int)(height * HEIGHT_VARIATION);
+                
                 // Fill the chunk with blocks based on the surface height
-                for (int y = 0; y < worldHeight; y++) {
-                    if (y < surfaceHeight - 5) {
-                        chunkBlocks[x][y][z] = new Block(BlockType.STONE); // Deeper underground, assume stone
-                    } else if (y < surfaceHeight) {
-                        chunkBlocks[x][y][z] = new Block(BlockType.DIRT); // Below surface, dirt
-                    } else if (y == surfaceHeight) {
-                        chunkBlocks[x][y][z] = new Block(BlockType.GRASS); // At the surface, grass
-                    } else {
-                        chunkBlocks[x][y][z] = new Block(BlockType.AIR); // Above surface, air
-                    }
+                for (int y = 0; y <= surfaceHeight; y++) {
+                    if (y == 0) chunkBlocks[x][y][z] = new Block(BlockType.BEDROCK);
+                    else if (y < surfaceHeight - STONE_DEPTH) chunkBlocks[x][y][z] = new Block(BlockType.STONE);
+                    else if (y < surfaceHeight) chunkBlocks[x][y][z] = new Block(BlockType.DIRT);
+                    else chunkBlocks[x][y][z] = new Block(BlockType.GRASS);
+                }
+        
+                for (int y = surfaceHeight + 1; y < worldHeight; y++) {
+                    chunkBlocks[x][y][z] = new Block(BlockType.AIR);
                 }
             }
         }
