@@ -1,0 +1,28 @@
+<block id="crafting_table" name="Crafting Table">
+  <model src="models/crafting_table_model.json"/>
+  <texture src="textures/block/crafting_table_texture.png"/>
+
+  <actions>
+    <action trigger="interact">
+      <effect type="open_gui" gui_type="crafting"/>
+    </action>
+  </actions>
+
+  <crafting_recipes>
+    <recipe id="wooden_pickaxe">
+      <inputs>
+        <input item_id="wood_plank" quantity="3"/>
+        <input item_id="stick" quantity="2"/>
+      </inputs>
+      <output item_id="wooden_pickaxe" quantity="1"/>
+    </recipe>
+
+    <recipe id="stone_axe">
+      <inputs>
+        <input item_id="cobblestone" quantity="3"/>
+        <input item_id="stick" quantity="2"/>
+      </inputs>
+      <output item_id="stone_axe" quantity="1"/>
+    </recipe>
+  </crafting_recipes>
+</block>
