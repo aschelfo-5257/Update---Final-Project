@@ -1,0 +1,47 @@
+<block id="my_custom_block" name="Custom Block">
+  <model src="path/to/my_custom_block_model.json"/>
+  <texture src="block/my_custom_block_texture"/>
+  <actions>
+    <action trigger="right_click">
+      <effect type="change_block_state" state="powered"/>
+      <effect type="play_sound" sound="button_press"/>
+    </action>
+    <action trigger="left_click">
+      <effect type="spawn_item" item_id="iron_ingot" quantity="1"/>
+    </action>
+  </actions>
+</block>
+<block_actions>
+  <block id="stone">
+    <action type="break" sound="block_break_stone" duration="1.5">
+      <drop item_id="cobblestone" quantity="1" chance="1.0"/>
+    </action>
+    <action type="place" sound="block_place_stone"/>
+    <action type="interact" result="open_inventory"/>
+  </block>
+
+  <block id="crafting_table">
+    <action type="interact" result="open_crafting_gui">
+      <recipes>
+        <!-- Define recipes associated with the crafting table -->
+        <recipe id="pickaxe_wood">
+          <input item_id="wood" quantity="3"/>
+          <input item_id="stick" quantity="2"/>
+          <output item_id="pickaxe_wood" quantity="1"/>
+        </recipe>
+      </recipes>
+    </action>
+  </block>
+
+  <block id="furnace">
+    <action type="interact" result="open_furnace_gui">
+      <smelting_recipes>
+        <!-- Define smelting recipes associated with the furnace -->
+        <recipe id="iron_ingot">
+          <input item_id="iron_ore" quantity="1"/>
+          <output item_id="iron_ingot" quantity="1"/>
+        </recipe>
+      </smelting_recipes>
+    </action>
+  </block>
+</block_actions>
