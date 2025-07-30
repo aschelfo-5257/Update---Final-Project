@@ -1,67 +1,92 @@
-import javafx.event.KeyEvent;
-import javafx.event.KeyListener;
-import javafx.event.MouseEvent;
-import javafx.event.MouseListener;
-import javafx.event.MouseMotionListener;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
-public class PlayerController implements KeyListener, MouseListener, MouseMotionListener {
+public class PlayerController {
 
-    // Player position and camera orientation variables
-    private float playerX, playerY, playerZ;
-    private float yaw, pitch; // Camera angles
-
-    // Input state
+    // Player input states
     private boolean movingForward, movingBackward, strafingLeft, strafingRight;
-    private boolean jumping;
-    private boolean leftClickPressed, rightClickPressed;
+    private boolean jumping, leftClickPressed, rightClickPressed;
 
-    // ... other game-specific variables
+    // Camera angles
+    private double yaw = 0;
+    private double pitch = 0;
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W: movingForward = true; break;
-            case KeyEvent.VK_S: movingBackward = true; break;
-            case KeyEvent.VK_A: strafingLeft = true; break;
-            case KeyEvent.VK_D: strafingRight = true; break;
-            case KeyEvent.VK_SPACE: jumping = true; break;
+    private double lastMouseX = -1;
+    private double lastMouseY = -1;
+
+    public void registerInputHandlers(Scene scene) {
+        scene.setOnKeyPressed(this::handleKeyPressed);
+        scene.setOnKeyReleased(this::handleKeyReleased);
+        scene.setOnMousePressed(this::handleMousePressed);
+        scene.setOnMouseReleased(this::handleMouseReleased);
+        scene.setOnMouseMoved(this::handleMouseMoved);
+    }
+
+    private void handleKeyPressed(KeyEvent e) {
+        KeyCode code = e.getCode();
+        switch (code) {
+            case W -> movingForward = true;
+            case S -> movingBackward = true;
+            case A -> strafingLeft = true;
+            case D -> strafingRight = true;
+            case SPACE -> jumping = true;
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_W: movingForward = false; break;
-            case KeyEvent.VK_S: movingBackward = false; break;
-            case KeyEvent.VK_A: strafingLeft = false; break;
-            case KeyEvent.VK_D: strafingRight = false; break;
-            case KeyEvent.VK_SPACE: jumping = false; break;
+    private void handleKeyReleased(KeyEvent e) {
+        KeyCode code = e.getCode();
+        switch (code) {
+            case W -> movingForward = false;
+            case S -> movingBackward = false;
+            case A -> strafingLeft = false;
+            case D -> strafingRight = false;
+            case SPACE -> jumping = false;
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            leftClickPressed = true; // For breaking blocks
-        } else if (e.getButton() == MouseEvent.BUTTON3) {
-            rightClickPressed = true; // For placing blocks
+    private void handleMousePressed(MouseEvent e) {
+        if (e.getButton() == MouseButton.PRIMARY) {
+            leftClickPressed = true;
+        } else if (e.getButton() == MouseButton.SECONDARY) {
+            rightClickPressed = true;
         }
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
+    private void handleMouseReleased(MouseEvent e) {
+        if (e.getButton() == MouseButton.PRIMARY) {
             leftClickPressed = false;
-        } else if (e.getButton() == MouseEvent.BUTTON3) {
+        } else if (e.getButton() == MouseButton.SECONDARY) {
             rightClickPressed = false;
         }
     }
 
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // Update yaw and pitch based on mouse movement
-        // ...
+    private void handleMouseMoved(MouseEvent e) {
+        if (lastMouseX >= 0 && lastMouseY >= 0) {
+            double deltaX = e.getX() - lastMouseX;
+            double deltaY = e.getY() - lastMouseY;
+
+            yaw += deltaX * 0.2;
+            pitch -= deltaY * 0.2;
+
+            // Clamp pitch to avoid flipping camera
+            pitch = Math.max(-90, Math.min(90, pitch));
+        }
+
+        lastMouseX = e.getX();
+        lastMouseY = e.getY();
     }
 
-    // ... other mouse and key listener methods
+    // Getters to check input state from game loop
+    public boolean isMovingForward() { return movingForward; }
+    public boolean isMovingBackward() { return movingBackward; }
+    public boolean isStrafingLeft() { return strafingLeft; }
+    public boolean isStrafingRight() { return strafingRight; }
+    public boolean isJumping() { return jumping; }
+    public boolean isLeftClickPressed() { return leftClickPressed; }
+    public boolean isRightClickPressed() { return rightClickPressed; }
+    public double getYaw() { return yaw; }
+    public double getPitch() { return pitch; }
 }
