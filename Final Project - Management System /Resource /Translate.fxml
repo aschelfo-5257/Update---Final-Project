@@ -1,0 +1,22 @@
+<Group xmlns:fx="http://javafx.com/fxml" fx:controller="your.package.Controller">
+    <SubScene width="800" height="600" depthBuffer="true">
+        <PerspectiveCamera fieldOfView="60" nearClip="0.1" farClip="1000"/>
+        <Group>
+            <Box width="200" height="100" depth="50">
+                <material>
+                    <PhongMaterial diffuseColor="#FF0000"/>
+                </material>
+                <transforms>
+                    <!-- Position the box 100 units along the X-axis, 50 along Y, and -150 along Z -->
+                    <Translate x="100" y="50" z="-150"/>
+                    
+                    <!-- Rotate the box 45 degrees around the Y-axis -->
+                    <Rotate angle="45" axis="Y_AXIS"/>
+                    
+                    <!-- Rotate the box 30 degrees around the X-axis (after the Y-axis rotation) -->
+                    <Rotate angle="30" axis="X_AXIS"/>
+                </transforms>
+            </Box>
+        </Group>
+    </SubScene>
+</Group>
