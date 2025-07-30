@@ -1,0 +1,7 @@
+<block id="stone">
+  <action type="break" sound="block_break_stone" duration="1.5">
+    <drop item_id="cobblestone" quantity="1" chance="1.0"/>
+  </action>
+  <action type="place" sound="block_place_stone"/>
+  <action type="interact" result="open_inventory"/>
+</block>
