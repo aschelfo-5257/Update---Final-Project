@@ -2,6 +2,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.shape.Box?>
 <?import javafx.scene.paint.PhongMaterial?>
+<?import javafx.scene.transform.Translate?>
 
 <Group xmlns:fx="http://javafx.com/fxml/1" fx:controller="yourpackage.WorldController">
     <PerspectiveCamera />
@@ -10,7 +11,7 @@
     <!-- A simple block -->
     <Box width="1" height="1" depth="1">
         <material>
-            <PhongMaterial diffuseColor="GREEN" />
+            <PhongMaterial diffuseColor="GREEN" specularColor="WHITE"/>
         </material>
     </Box>
 
@@ -20,10 +21,10 @@
             <Translate x="2" y="0" z="0" />
         </transforms>
         <material>
-            <PhongMaterial diffuseColor="BLUE" />
+            <PhongMaterial diffuseColor="BLUE" specularColor="WHITE"/>
         </material>
     </Box>
 
-    <!-- ... more blocks ... -->
+    <!-- Add more blocks here as needed -->
 
 </Group>
