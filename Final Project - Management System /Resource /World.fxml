@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.Box?>
+<?import javafx.scene.paint.PhongMaterial?>
+
+<Group xmlns:fx="http://javafx.com/fxml/1" fx:controller="yourpackage.WorldController">
+    <PerspectiveCamera />
+    <AmbientLight color="#cccccc" />
+
+    <!-- A simple block -->
+    <Box width="1" height="1" depth="1">
+        <material>
+            <PhongMaterial diffuseColor="GREEN" />
+        </material>
+    </Box>
+
+    <!-- Another block, positioned -->
+    <Box width="1" height="1" depth="1">
+        <transforms>
+            <Translate x="2" y="0" z="0" />
+        </transforms>
+        <material>
+            <PhongMaterial diffuseColor="BLUE" />
+        </material>
+    </Box>
+
+    <!-- ... more blocks ... -->
+
+</Group>
