@@ -33,9 +33,9 @@ public class Recipe {
     @Override
     public String toString() {
         return "Recipe{" +
-                "ingredients=" + ingredients +
-                ", outputItem='" + outputItem + '\'' +
-                ", outputQuantity=" + outputQuantity +
-                '}';
+        "ingredients=" + ingredients +
+        ", outputItem='" + outputItem + '\'' +
+        ", outputQuantity=" + outputQuantity +
+        '}';
     }
 }
