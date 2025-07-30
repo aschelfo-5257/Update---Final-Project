@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import com.google.gson.Gson;
 
-// Simple in-memory storage for blocks
 @WebServlet("/blockcraft")
 public class BlockCraftServlet extends HttpServlet {
     private static final Map<String, String> blockData = new ConcurrentHashMap<>();
@@ -17,7 +17,7 @@ public class BlockCraftServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        out.println(new Gson().toJson(blockData)); // Using Gson for JSON serialization
+        out.println(new Gson().toJson(blockData));
     }
 
     @Override
@@ -28,9 +28,19 @@ public class BlockCraftServlet extends HttpServlet {
         String blockType = request.getParameter("blockType");
 
         if (x != null && y != null && z != null && blockType != null) {
+            try {
+                Integer.parseInt(x);
+                Integer.parseInt(y);
+                Integer.parseInt(z);
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Coordinates must be numeric.");
+                return;
+            }
+
             String blockId = x + "_" + y + "_" + z;
-            blockData.put(blockId, blockType); // Store block
-            response.setStatus(HttpServletResponse.SC_OK);
+            blockData.put(blockId, blockType);
+            response.setContentType("text/plain");
+            response.getWriter().println("Block placed at: " + blockId);
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters for block placement.");
         }
