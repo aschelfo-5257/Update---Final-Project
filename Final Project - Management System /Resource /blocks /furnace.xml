@@ -1,0 +1,28 @@
+<block id="furnace" name="Furnace">
+  <model src="models/furnace_model.json"/>
+  <texture src="textures/block/furnace_texture.png"/>
+
+  <actions>
+    <action trigger="interact">
+      <effect type="open_gui" gui_type="furnace"/>
+    </action>
+  </actions>
+
+  <smelting_recipes>
+    <recipe id="smelt_iron">
+      <input item_id="iron_ore" quantity="1"/>
+      <fuel item_id="coal" quantity="1"/>
+      <output item_id="iron_ingot" quantity="1"/>
+      <cook_time>10</cook_time> <!-- in seconds or ticks -->
+      <experience>0.7</experience>
+    </recipe>
+
+    <recipe id="smelt_sand">
+      <input item_id="sand" quantity="1"/>
+      <fuel item_id="charcoal" quantity="1"/>
+      <output item_id="glass" quantity="1"/>
+      <cook_time>8</cook_time>
+      <experience>0.3</experience>
+    </recipe>
+  </smelting_recipes>
+</block>
