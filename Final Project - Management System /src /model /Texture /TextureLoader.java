@@ -1,38 +1,57 @@
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.File;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelFormat;
+import javafx.scene.image.PixelReader;
+import org.lwjgl.opengl.GL11;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.nio.ByteBuffer;
 
 public class TextureLoader {
-    public static BufferedImage loadImage(String path) {
-        // Assuming you have a BufferedImage 'textureImage'
-        // and have set up OpenGL context
 
+    public static int loadTexture(String path) {
+        Image image;
+        try {
+            image = new Image(new FileInputStream(path));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return -1;
+        }
+
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
+
+        PixelReader reader = image.getPixelReader();
+        if (reader == null) {
+            System.err.println("PixelReader is null for image: " + path);
+            return -1;
+        }
+
+        // Prepare ByteBuffer for OpenGL RGBA pixel data
+        byte[] pixels = new byte[width * height * 4];
+        reader.getPixels(0, 0, width, height, PixelFormat.getByteBgraInstance(), pixels, 0, width * 4);
+
+        // JavaFX uses BGRA; convert to RGBA for OpenGL
+        for (int i = 0; i < pixels.length; i += 4) {
+            byte b = pixels[i];
+            pixels[i] = pixels[i + 2];     // R <- B
+            pixels[i + 2] = b;             // B <- R
+        }
+
+        ByteBuffer buffer = ByteBuffer.allocateDirect(pixels.length);
+        buffer.put(pixels);
+        buffer.flip();
+
+        // Upload to OpenGL
         int textureID = GL11.glGenTextures();
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
 
-        // Set texture parameters (e.g., filtering, wrapping)
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
 
-        /**
-         * Convert BufferedImage to ByteBuffer for OpenGL
-         * (This part requires more advanced image manipulation for pixel data)
-         *
-         * Upload texture data
-         * GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height, 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, byteBuffer);
-         *
-         * When rendering your block
-         * GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
-         * Render your block's faces with appropriate texture coordinates
-         *
-        **/
-          try {
-          return ImageIO.read(new File(path));
-          } catch (IOException e) {
-          e.printStackTrace();
-          return null;
-        }
+        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA8, width, height, 0,
+                          GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
+
+        return textureID;
     }
 }
