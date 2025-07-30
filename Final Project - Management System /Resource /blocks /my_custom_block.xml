@@ -1,0 +1,13 @@
+<block id="my_custom_block" name="Custom Block">
+  <model src="models/my_custom_block_model.json"/>
+  <texture src="textures/block/my_custom_block_texture.png"/>
+  <actions>
+    <action trigger="right_click">
+      <effect type="change_block_state" state="powered"/>
+      <effect type="play_sound" sound="button_press"/>
+    </action>
+    <action trigger="left_click">
+      <effect type="spawn_item" item_id="iron_ingot" quantity="1"/>
+    </action>
+  </actions>
+</block>
