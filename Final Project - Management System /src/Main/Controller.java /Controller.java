@@ -22,13 +22,13 @@ public class Controller {
         if (game != null) {
             game.placeBlock();
         } else {
-            System.err.println("Game logic not set.");
+            selectedBlockLabel.setText("Error: Game logic not set.");
         }
     }
 
     /**
      * Sets the game logic reference for this controller.
-     * @param game the game logic object
+     * @param game the game logic object; BlockCraftGame represents the main game logic and state for the block crafting system.
      */
     public void setGame(BlockCraftGame game) {
         this.game = game;
